@@ -17,7 +17,7 @@ const SignupPage = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push('/userpage/Chatbot'); // Redirect to the chatbot page after sign up
+      router.push('/userpage/chatbot');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setError('Email already in use. Go to login page?');
@@ -29,8 +29,19 @@ const SignupPage = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 8 }}>
+    <Container maxWidth="xs">
+      <Box
+        sx={{
+          mt: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          backgroundColor: '#f5f5f5',
+          padding: 4,
+          borderRadius: 2,
+          boxShadow: 3,
+        }}
+      >
         <Typography variant="h4" component="h1" gutterBottom>
           Sign Up
         </Typography>
@@ -39,28 +50,43 @@ const SignupPage = () => {
             label="Email"
             type="email"
             fullWidth
+            variant="outlined"
             margin="normal"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoFocus
           />
           <TextField
             label="Password"
             type="password"
             fullWidth
+            variant="outlined"
             margin="normal"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{
+              mt: 3,
+              mb: 2,
+              padding: 1.5,
+              fontWeight: 'bold',
+              textTransform: 'none',
+            }}
+          >
             Sign Up
           </Button>
         </form>
         {error && (
-          <Box sx={{ mt: 2 }}>
-            <Alert severity="error">{error}</Alert>
-          </Box>
+          <Alert severity="error" sx={{ mt: 2, width: '100%' }}>
+            {error}
+          </Alert>
         )}
       </Box>
     </Container>
